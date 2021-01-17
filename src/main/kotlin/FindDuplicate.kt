@@ -1,13 +1,16 @@
 class FindDuplicate {
     fun findDuplicate(nums: IntArray): Int {
-        val min = nums.min()
-        val max = nums.max()
-        val sum = ((max!! + min!!) * (nums.size - 1)) / 2
-        return nums.sum() - sum
+        val hashMap = HashMap<Int, Int>()
+        nums.forEach {
+            hashMap[it] = hashMap.getOrDefault(it, 0) + 1
+        }
+        val maxValue = hashMap.values.max()
+        val keys = hashMap.filterValues { it == maxValue }.keys
+        return keys.first()
     }
 }
 
 fun main() {
     val s = FindDuplicate()
-    println(s.findDuplicate(intArrayOf(3, 1, 3, 4, 2)))
+    println(s.findDuplicate(intArrayOf(1,4,4,2,4)))
 }
